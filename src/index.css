@@ -1,0 +1,200 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    @apply bg-palha-100 text-jenipapo-900 font-sans;
+  }
+  h1, h2, h3, .font-display {
+    font-variation-settings: 'SOFT' 50, 'opsz' 96;
+  }
+  :focus-visible {
+    outline: 3px solid #D46C41;
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+  ::selection {
+    background: #ECB396;
+    color: #0C1922;
+  }
+}
+
+@layer components {
+  .container-r {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+  .card {
+    @apply rounded-2xl border border-palha-300/70 bg-white/80 shadow-card backdrop-blur-sm;
+  }
+  .card-dark {
+    @apply rounded-2xl border border-white/10 bg-jenipapo-800/80 backdrop-blur;
+  }
+  .eyebrow {
+    @apply font-mono text-[11px] font-semibold uppercase tracking-[0.18em];
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-primary {
+    @apply btn bg-urucum-500 text-white shadow-[0_8px_24px_-10px_rgba(194,81,46,0.8)] hover:bg-urucum-600 active:scale-[0.98];
+  }
+  .btn-ghost-dark {
+    @apply btn border border-white/20 text-palha-100 hover:border-white/40 hover:bg-white/5;
+  }
+  .btn-ghost {
+    @apply btn border border-jenipapo-900/15 text-jenipapo-900 hover:border-jenipapo-900/30 hover:bg-jenipapo-900/5;
+  }
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold;
+  }
+  .input {
+    @apply w-full rounded-xl border border-palha-300 bg-white px-3 py-2 text-sm text-jenipapo-900 placeholder:text-jenipapo-400 focus:border-urucum-400 focus:outline-none focus:ring-2 focus:ring-urucum-200;
+  }
+  .input-dark {
+    @apply w-full rounded-xl border border-white/15 bg-jenipapo-950/60 px-3 py-2 text-sm text-palha-100 placeholder:text-jenipapo-400 focus:border-urucum-400 focus:outline-none focus:ring-2 focus:ring-urucum-500/30;
+  }
+}
+
+/* textura orgânica sutil (ramificações) */
+.bg-roots {
+  background-image: radial-gradient(circle at 1px 1px, rgba(12, 25, 34, 0.07) 1px, transparent 0);
+  background-size: 22px 22px;
+}
+.bg-roots-dark {
+  background-image: radial-gradient(circle at 1px 1px, rgba(237, 227, 207, 0.06) 1px, transparent 0);
+  background-size: 22px 22px;
+}
+.grain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.06;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ------------------------------------------------------------------ Leaflet */
+.leaflet-container {
+  background: #0a141b;
+  font-family: 'Public Sans', system-ui, sans-serif;
+}
+.leaflet-control-attribution {
+  background: rgba(7, 15, 21, 0.7) !important;
+  color: #8fa7b3 !important;
+  font-size: 10px !important;
+}
+.leaflet-control-attribution a {
+  color: #cfd9de !important;
+}
+.leaflet-control-zoom a {
+  background: #12242f !important;
+  color: #ede3cf !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+.leaflet-tooltip.rz-tip {
+  background: #0c1922;
+  color: #ede3cf;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  font-size: 12px;
+  padding: 4px 8px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+}
+.leaflet-tooltip.rz-tip::before {
+  display: none;
+}
+
+/* marcadores de nó */
+.rz-node {
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+.rz-node .pulse {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  animation: rzping 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+.rz-node svg {
+  position: relative;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.55));
+  transition: transform 0.2s;
+}
+.rz-node:hover svg {
+  transform: scale(1.18);
+}
+.rz-node.selected svg {
+  transform: scale(1.3);
+}
+.rz-node.dim {
+  opacity: 0.35;
+}
+@keyframes rzping {
+  0% { transform: scale(0.9); opacity: 0.65; }
+  100% { transform: scale(2.8); opacity: 0; }
+}
+
+/* pacote animado */
+.rz-packet {
+  width: 12px;
+  height: 12px;
+  border-radius: 9999px;
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.12), 0 0 18px 4px var(--c);
+  background: var(--c);
+}
+.rz-packet.big {
+  width: 16px;
+  height: 16px;
+}
+.rz-ripple {
+  width: 40px;
+  height: 40px;
+  border-radius: 9999px;
+  border: 2px solid var(--c);
+  animation: rzripple 0.9s ease-out forwards;
+}
+@keyframes rzripple {
+  0% { transform: scale(0.2); opacity: 1; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+
+.rz-link-anim {
+  stroke-dasharray: 6 10;
+  animation: rzdash 1.2s linear infinite;
+}
+@keyframes rzdash {
+  to { stroke-dashoffset: -32; }
+}
+
+/* scrollbar discreta no console */
+.scroll-thin::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.scroll-thin::-webkit-scrollbar-thumb {
+  background: rgba(143, 167, 179, 0.3);
+  border-radius: 8px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* tiles de satélite escurecidos e esfriados para o tema jenipapo */
+.rz-tiles {
+  filter: brightness(0.58) saturate(0.8) contrast(1.1) hue-rotate(-8deg);
+}
